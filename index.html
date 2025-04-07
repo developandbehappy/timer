@@ -262,209 +262,210 @@
     </audio>
 
     <script>
-        // Элементы UI
-        const timeDisplay = document.querySelector('.time');
-        const progressBar = document.querySelector('.progress-bar');
-        const startPauseBtn = document.getElementById('start-pause');
-        const resetBtn = document.getElementById('reset');
-        const presetBtns = document.querySelectorAll('.preset-btn');
-        const minutesInput = document.getElementById('minutes');
-        const secondsInput = document.getElementById('seconds');
-        const addCustomBtn = document.getElementById('add-custom');
-        const intervalCheckboxes = document.querySelectorAll('.interval-options input[type="checkbox"]');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Элементы UI
+            const timeDisplay = document.querySelector('.time');
+            const progressBar = document.querySelector('.progress-bar');
+            const startPauseBtn = document.getElementById('start-pause');
+            const resetBtn = document.getElementById('reset');
+            const presetBtns = document.querySelectorAll('.preset-btn');
+            const minutesInput = document.getElementById('minutes');
+            const secondsInput = document.getElementById('seconds');
+            const addCustomBtn = document.getElementById('add-custom');
+            const intervalCheckboxes = document.querySelectorAll('.interval-options input[type="checkbox"]');
 
 
-        
-        // Звуки
-        const intervalSound = document.getElementById('interval-sound');
-        const finishSound = document.getElementById('complete-audio');
 
-        finishSound.load();
-        intervalSound.load();
+            // Звуки
+            const intervalSound = document.getElementById('interval-sound');
+            const finishSound = document.getElementById('complete-audio');
 
-        // Переменные таймера
-        let timer = null;
-        let isRunning = false;
-        let totalSeconds = 0;
-        let remainingSeconds = 0;
-        let activeIntervals = new Set();
+            finishSound.load();
+            intervalSound.load();
 
-        // Инициализация
-        updateDisplay(0);
+            // Переменные таймера
+            let timer = null;
+            let isRunning = false;
+            let totalSeconds = 0;
+            let remainingSeconds = 0;
+            let activeIntervals = new Set();
 
-        // Обработчики событий
-        startPauseBtn.addEventListener('click', toggleTimer);
-        resetBtn.addEventListener('click', resetTimer);
+            // Инициализация
+            updateDisplay(0);
 
-        presetBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                const seconds = parseInt(this.dataset.seconds);
-                setTimer(seconds);
+            // Обработчики событий
+            startPauseBtn.addEventListener('click', toggleTimer);
+            resetBtn.addEventListener('click', resetTimer);
 
-                // Убираем активный класс у всех кнопок и добавляем текущей
-                presetBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+            presetBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const seconds = parseInt(this.dataset.seconds);
+                    setTimer(seconds);
+
+                    // Убираем активный класс у всех кнопок и добавляем текущей
+                    presetBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
             });
-        });
 
-        addCustomBtn.addEventListener('click', function () {
-            const minutes = parseInt(minutesInput.value) || 0;
-            const seconds = parseInt(secondsInput.value) || 0;
-            const totalSecs = minutes * 60 + seconds;
+            addCustomBtn.addEventListener('click', function () {
+                const minutes = parseInt(minutesInput.value) || 0;
+                const seconds = parseInt(secondsInput.value) || 0;
+                const totalSecs = minutes * 60 + seconds;
 
-            if (totalSecs > 0) {
-                setTimer(totalSecs);
+                if (totalSecs > 0) {
+                    setTimer(totalSecs);
 
-                // Сбрасываем активный класс у всех кнопок
-                presetBtns.forEach(btn => btn.classList.remove('active'));
+                    // Сбрасываем активный класс у всех кнопок
+                    presetBtns.forEach(btn => btn.classList.remove('active'));
 
-                // Сбрасываем поля ввода
-                minutesInput.value = '';
-                secondsInput.value = '';
-            }
-        });
-
-        intervalCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                const interval = parseInt(this.dataset.interval);
-
-                if (this.checked) {
-                    activeIntervals.add(interval);
-                } else {
-                    activeIntervals.delete(interval);
+                    // Сбрасываем поля ввода
+                    minutesInput.value = '';
+                    secondsInput.value = '';
                 }
             });
-        });
 
-        function setCheckedWithEvent() {
-            // Get the checkbox element
-            const checkbox = document.getElementById('sound-15');
+            intervalCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    const interval = parseInt(this.dataset.interval);
 
-            // Set the checked property to true
-            checkbox.checked = true;
-
-            // Create and dispatch a change event
-            const changeEvent = new Event('change', {
-                bubbles: true,    // Event bubbles up through the DOM
-                cancelable: true  // Event can be canceled
-            });
-
-            // Dispatch the change event on the checkbox
-            checkbox.dispatchEvent(changeEvent);
-
-            console.log('Checkbox has been checked and change event triggered');
-        }
-
-
-        // Функции
-        function toggleTimer() {
-            if (remainingSeconds <= 0) {
-                // Если таймер закончился или не был установлен, используем последний установленный
-                remainingSeconds = totalSeconds > 0 ? totalSeconds : 0;
-            }
-
-            if (remainingSeconds <= 0) {
-                return; // Нет установленного времени
-            }
-
-            if (isRunning) {
-                clearInterval(timer);
-                startPauseBtn.textContent = 'Запустить';
-            } else {
-                startTimer();
-                startPauseBtn.textContent = 'Пауза';
-            }
-
-            isRunning = !isRunning;
-        }
-
-        function startTimer() {
-            const startTime = Date.now();
-            const initialRemaining = remainingSeconds;
-
-            timer = setInterval(() => {
-                const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
-                remainingSeconds = initialRemaining - elapsedSeconds;
-
-                if (remainingSeconds <= 0) {
-                    completeTimer();
-                    return;
-                }
-
-                // Проверяем необходимость промежуточных звуков
-                const secondsElapsed = totalSeconds - remainingSeconds;
-                activeIntervals.forEach(interval => {
-                    if (secondsElapsed > 0 && secondsElapsed % interval === 0) {
-                        playIntervalSound();
+                    if (this.checked) {
+                        activeIntervals.add(interval);
+                    } else {
+                        activeIntervals.delete(interval);
                     }
                 });
+            });
 
-                updateDisplay(remainingSeconds);
-            }, 100); // Обновляем чаще для более плавного прогресс-бара
-        }
+            function setCheckedWithEvent() {
+                // Get the checkbox element
+                const checkbox = document.getElementById('sound-15');
 
-        function resetTimer() {
-            clearInterval(timer);
-            isRunning = false;
-            remainingSeconds = totalSeconds;
-            startPauseBtn.textContent = 'Запустить';
-            updateDisplay(remainingSeconds);
-        }
+                // Set the checked property to true
+                checkbox.checked = true;
 
-        function setTimer(seconds) {
-            // Останавливаем текущий таймер, если он запущен
-            if (isRunning) {
+                // Create and dispatch a change event
+                const changeEvent = new Event('change', {
+                    bubbles: true,    // Event bubbles up through the DOM
+                    cancelable: true  // Event can be canceled
+                });
+
+                // Dispatch the change event on the checkbox
+                checkbox.dispatchEvent(changeEvent);
+
+                console.log('Checkbox has been checked and change event triggered');
+            }
+
+
+            // Функции
+            function toggleTimer() {
+                if (remainingSeconds <= 0) {
+                    // Если таймер закончился или не был установлен, используем последний установленный
+                    remainingSeconds = totalSeconds > 0 ? totalSeconds : 0;
+                }
+
+                if (remainingSeconds <= 0) {
+                    return; // Нет установленного времени
+                }
+
+                if (isRunning) {
+                    clearInterval(timer);
+                    startPauseBtn.textContent = 'Запустить';
+                } else {
+                    startTimer();
+                    startPauseBtn.textContent = 'Пауза';
+                }
+
+                isRunning = !isRunning;
+            }
+
+            function startTimer() {
+                const startTime = Date.now();
+                const initialRemaining = remainingSeconds;
+
+                timer = setInterval(() => {
+                    const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+                    remainingSeconds = initialRemaining - elapsedSeconds;
+
+                    if (remainingSeconds <= 0) {
+                        completeTimer();
+                        return;
+                    }
+
+                    // Проверяем необходимость промежуточных звуков
+                    const secondsElapsed = totalSeconds - remainingSeconds;
+                    activeIntervals.forEach(interval => {
+                        if (secondsElapsed > 0 && secondsElapsed % interval === 0) {
+                            playIntervalSound();
+                        }
+                    });
+
+                    updateDisplay(remainingSeconds);
+                }, 100); // Обновляем чаще для более плавного прогресс-бара
+            }
+
+            function resetTimer() {
                 clearInterval(timer);
+                isRunning = false;
+                remainingSeconds = totalSeconds;
+                startPauseBtn.textContent = 'Запустить';
+                updateDisplay(remainingSeconds);
             }
 
-            totalSeconds = seconds;
-            remainingSeconds = seconds;
-            updateDisplay(remainingSeconds);
+            function setTimer(seconds) {
+                // Останавливаем текущий таймер, если он запущен
+                if (isRunning) {
+                    clearInterval(timer);
+                }
 
-            // Автоматически запускаем таймер
-            isRunning = false;
-            toggleTimer();
-        }
+                totalSeconds = seconds;
+                remainingSeconds = seconds;
+                updateDisplay(remainingSeconds);
 
-        function completeTimer() {
-            clearInterval(timer);
-            isRunning = false;
-            remainingSeconds = 0;
-            updateDisplay(0);
-            startPauseBtn.textContent = 'Запустить';
-            playFinishSound();
-        }
-
-        function updateDisplay(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-
-            timeDisplay.textContent = `${padZero(minutes)}:${padZero(secs)}`;
-
-            // Обновляем прогресс-бар
-            const progressPercent = totalSeconds > 0 ? (seconds / totalSeconds) * 100 : 0;
-            progressBar.style.width = `${100 - progressPercent}%`;
-        }
-
-        function padZero(num) {
-            return num.toString().padStart(2, '0');
-        }
-
-        function playIntervalSound() {
-            if (!intervalSound.paused) {
-                intervalSound.pause();
-                intervalSound.currentTime = 0;
+                // Автоматически запускаем таймер
+                isRunning = false;
+                toggleTimer();
             }
-            intervalSound.play();
-        }
 
-        function playFinishSound() {
-            finishSound.play();
-        }
+            function completeTimer() {
+                clearInterval(timer);
+                isRunning = false;
+                remainingSeconds = 0;
+                updateDisplay(0);
+                startPauseBtn.textContent = 'Запустить';
+                playFinishSound();
+            }
+
+            function updateDisplay(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+
+                timeDisplay.textContent = `${padZero(minutes)}:${padZero(secs)}`;
+
+                // Обновляем прогресс-бар
+                const progressPercent = totalSeconds > 0 ? (seconds / totalSeconds) * 100 : 0;
+                progressBar.style.width = `${100 - progressPercent}%`;
+            }
+
+            function padZero(num) {
+                return num.toString().padStart(2, '0');
+            }
+
+            function playIntervalSound() {
+                if (!intervalSound.paused) {
+                    intervalSound.pause();
+                    intervalSound.currentTime = 0;
+                }
+                intervalSound.play();
+            }
+
+            function playFinishSound() {
+                finishSound.play();
+            }
 
 
-        const timeoutId = setTimeout(setCheckedWithEvent, 500);
-    </script>
+            const timeoutId = setTimeout(setCheckedWithEvent, 500);
+        });</script>
 
     <script>
         // Регистрация Service Worker для PWA
