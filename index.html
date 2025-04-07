@@ -330,6 +330,26 @@
             });
         });
 
+        function setCheckedWithEvent() {
+            // Get the checkbox element
+            const checkbox = document.getElementById('sound-15');
+
+            // Set the checked property to true
+            checkbox.checked = true;
+
+            // Create and dispatch a change event
+            const changeEvent = new Event('change', {
+                bubbles: true,    // Event bubbles up through the DOM
+                cancelable: true  // Event can be canceled
+            });
+
+            // Dispatch the change event on the checkbox
+            checkbox.dispatchEvent(changeEvent);
+
+            console.log('Checkbox has been checked and change event triggered');
+        }
+
+
         // Функции
         function toggleTimer() {
             if (remainingSeconds <= 0) {
@@ -436,6 +456,8 @@
             finishSound.play();
         }
 
+
+        const timeoutId = setTimeout(setCheckedWithEvent, 500);
     </script>
 
     <script>
