@@ -1,11 +1,11 @@
-const CACHE_NAME = 'media-loader-cache-v7';
+const CACHE_NAME = 'media-loader-cache-v8';
 const urlsToCache = [
     './index.html',
     './manifest.json',
     './icons/192.png',
     './icons/512.png',
-    './audio/finish.png',
-    './audio/interval.png',
+    './audio/finish.mp3',
+    './audio/interval.mp3',
 ];
 
 // Установка Service Worker
