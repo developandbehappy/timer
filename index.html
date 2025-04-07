@@ -258,7 +258,6 @@
     <audio id="finish-sound" src="./audio/finish.mp3"></audio>
 
     <script>
-
         // Элементы UI
         const timeDisplay = document.querySelector('.time');
         const progressBar = document.querySelector('.progress-bar');
@@ -273,6 +272,9 @@
         // Звуки
         const intervalSound = document.getElementById('interval-sound');
         const finishSound = document.getElementById('finish-sound');
+
+        finishSound.load();
+        intervalSound.load();
 
         // Переменные таймера
         let timer = null;
