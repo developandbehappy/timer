@@ -219,6 +219,7 @@
             body {
                 background-color: #fff;
                 padding: 0;
+                align-items: start;
             }
 
             .timer-container {
@@ -252,7 +253,7 @@
         <h1>Таймер</h1>
 
         <div id="countdown" class="countdown-delay">
-            Старт через: <span id="countdown-value">5</span>
+            Старт через: <span id="countdown-value">5..</span>
         </div>
 
         <div class="timer-display">
@@ -454,7 +455,7 @@
 
                 countdownInterval = setInterval(() => {
                     countdownValue--;
-                    countdownValueElement.textContent = `${countdownValue}...`;
+                    countdownValueElement.textContent = `${countdownValue}..`;
 
                     if (countdownValue <= 0) {
                         clearInterval(countdownInterval);
