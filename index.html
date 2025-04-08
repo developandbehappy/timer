@@ -258,11 +258,16 @@
 
 <body>
     <div class="timer-container">
-        <h1>Таймер</h1>
+        <h1>Таймер
+            <div id="countdown" class="countdown-delay hidden">
+                Старт через: <span id="countdown-value">5</span>
+            </div>
+        </h1>
 
         <div class="timer-display">
             <span id="minutes">00</span>:<span id="seconds">00</span>
         </div>
+
 
         <div class="presets-container">
             <h3>Готовые таймеры</h3>
@@ -272,6 +277,12 @@
                 <button class="preset-btn" data-time="300">5 мин</button>
                 <button class="preset-btn" data-time="600">10 мин</button>
             </div>
+        </div>
+
+        <div class="control-buttons">
+            <button id="start-btn">Старт</button>
+            <button id="pause-btn" disabled>Пауза</button>
+            <button id="reset-btn" disabled>Сброс</button>
         </div>
 
         <div class="custom-timer">
@@ -307,15 +318,6 @@
             </div>
         </div>
 
-        <div class="control-buttons">
-            <button id="start-btn">Старт</button>
-            <button id="pause-btn" disabled>Пауза</button>
-            <button id="reset-btn" disabled>Сброс</button>
-        </div>
-
-        <div id="countdown" class="countdown-delay hidden">
-            Старт через: <span id="countdown-value">5</span>
-        </div>
     </div>
 
     <div id="redBlock"></div>
@@ -326,6 +328,8 @@
         const tickSound = new Audio('https://developandbehappy.github.io/timer/audio/interval.mp3');
         const interimSound = new Audio('https://developandbehappy.github.io/timer/audio/interval.mp3');
         const completionSound = new Audio('https://developandbehappy.github.io/timer/audio/finish.mp3');
+
+
 
         // Элементы DOM
         const minutesDisplay = document.getElementById('minutes');
@@ -353,6 +357,10 @@
 
         // Инициализация таймера
         function initTimer() {
+            tickSound.load();
+            completionSound.load();
+            interimSound.load();
+            
             updateTimerDisplay(totalSeconds);
             highlightActivePreset();
         }
@@ -394,11 +402,11 @@
                 isVisible = !isVisible;
             }, 200); // Частота моргания - 200мс
 
-            // Останавливаем моргание и скрываем блок через 3 секунды
+            // Останавливаем моргание и скрываем блок через 1.5 секунды
             setTimeout(() => {
                 clearInterval(blinkInterval);
                 redBlock.style.display = 'none';
-            }, 3000);
+            }, 1500);
         }
 
         // Обработчик для предустановленных таймеров
