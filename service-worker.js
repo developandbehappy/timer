@@ -1,4 +1,4 @@
-const CACHE_NAME = 'media-loader-cache-v10';
+const CACHE_NAME = 'media-loader-cache-v11';
 const urlsToCache = [
     './index.html',
     './manifest.json',
