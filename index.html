@@ -13,460 +13,483 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
 
         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             background-color: #f5f5f5;
-            color: #333;
+            padding: 20px;
         }
 
-        .container {
+        .timer-container {
+            width: 100%;
             max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 25px;
         }
 
         h1 {
             text-align: center;
             margin-bottom: 20px;
-            color: #2c3e50;
+            color: #333;
         }
 
-        h2 {
+        h3 {
             margin: 15px 0 10px;
+            color: #555;
             font-size: 18px;
-            color: #2c3e50;
         }
 
         .timer-display {
-            background-color: #fff;
-            border-radius: 10px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .time {
-            font-size: 3rem;
             text-align: center;
+            font-size: 48px;
             font-weight: bold;
-            margin-bottom: 10px;
-            color: #2c3e50;
+            margin-bottom: 20px;
+            color: #333;
         }
 
-        .progress-container {
-            width: 100%;
-            height: 10px;
-            background-color: #ecf0f1;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0;
-            background-color: #3498db;
-            transition: width 0.5s;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .control-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            background-color: #3498db;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .control-btn:hover {
-            background-color: #2980b9;
-        }
-
-        #reset {
-            background-color: #e74c3c;
-        }
-
-        #reset:hover {
-            background-color: #c0392b;
-        }
-
-        .preset-buttons {
-            display: flex;
-            flex-wrap: wrap;
+        .presets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             margin-bottom: 15px;
         }
 
         .preset-btn {
-            flex: 1;
-            min-width: calc(50% - 10px);
-            padding: 10px;
-            border: 1px solid #3498db;
-            border-radius: 5px;
-            background-color: #fff;
-            color: #3498db;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #e9f7fe;
+            color: #0c7cd5;
+            font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: background-color 0.2s;
         }
 
         .preset-btn:hover {
-            background-color: #3498db;
-            color: white;
+            background-color: #d0ebfc;
         }
 
         .preset-btn.active {
-            background-color: #3498db;
+            background-color: #0c7cd5;
             color: white;
         }
 
         .custom-input {
             display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
-        input[type="number"] {
-            width: 80px;
+        .custom-input input {
+            flex: 1;
             padding: 10px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
         }
 
-        .interval-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        #add-custom-timer {
+            padding: 10px 15px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            white-space: nowrap;
         }
 
-        .interval-options label {
+        #add-custom-timer:hover {
+            background-color: #43a047;
+        }
+
+        .settings {
+            margin-bottom: 20px;
+        }
+
+        .setting-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            cursor: pointer;
+            margin-bottom: 10px;
         }
 
-        input[type="checkbox"] {
+        .setting-item input[type="checkbox"] {
+            margin-right: 10px;
             width: 18px;
             height: 18px;
-            cursor: pointer;
         }
 
-        /* Адаптив для мобильных */
+        .interim-sounds {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+
+        .interim-sounds p {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .control-buttons button {
+            flex: 1;
+            padding: 12px 0;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #start-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #start-btn:hover {
+            background-color: #43a047;
+        }
+
+        #pause-btn {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        #pause-btn:hover {
+            background-color: #f57c00;
+        }
+
+        #reset-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #reset-btn:hover {
+            background-color: #e53935;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .countdown-delay {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 18px;
+            color: #ff5722;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #fff3e0;
+            border-radius: 6px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
         @media (max-width: 480px) {
-            .container {
+            .timer-display {
+                font-size: 36px;
                 padding: 15px;
             }
 
-            .time {
-                font-size: 2.5rem;
-            }
-
-            .control-btn {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-
-            .preset-btn {
-                min-width: calc(50% - 5px);
-                padding: 8px;
-                font-size: 14px;
+            .presets {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .custom-input {
-                flex-wrap: wrap;
+                flex-direction: column;
             }
 
-            input[type="number"] {
-                width: calc(50% - 5px);
+            .control-buttons {
+                flex-direction: column;
             }
 
-            #add-custom {
-                width: 100%;
-                margin-top: 10px;
+            h1 {
+                font-size: 24px;
+            }
+
+            h3 {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="timer-container">
         <h1>Таймер</h1>
 
         <div class="timer-display">
-            <div class="time">00:00</div>
-            <div class="progress-container">
-                <div class="progress-bar"></div>
-            </div>
+            <span id="minutes">00</span>:<span id="seconds">00</span>
         </div>
 
-        <div class="controls">
-            <button id="start-pause" class="control-btn">Запустить</button>
-            <button id="reset" class="control-btn">Сбросить</button>
-        </div>
-
-        <div class="presets">
-            <h2>Готовые таймеры</h2>
-            <div class="preset-buttons">
-                <button class="preset-btn" data-seconds="60">1 мин</button>
-                <button class="preset-btn" data-seconds="180">3 мин</button>
-                <button class="preset-btn" data-seconds="300">5 мин</button>
-                <button class="preset-btn" data-seconds="600">10 мин</button>
+        <div class="presets-container">
+            <h3>Готовые таймеры</h3>
+            <div class="presets">
+                <button class="preset-btn" data-time="60">1 мин</button>
+                <button class="preset-btn" data-time="180">3 мин</button>
+                <button class="preset-btn" data-time="300">5 мин</button>
+                <button class="preset-btn" data-time="600">10 мин</button>
             </div>
         </div>
 
         <div class="custom-timer">
-            <h2>Свой таймер</h2>
+            <h3>Свой таймер</h3>
             <div class="custom-input">
-                <input type="number" id="minutes" min="0" max="59" placeholder="Мин">
-                <input type="number" id="seconds" min="0" max="59" placeholder="Сек">
-                <button id="add-custom" class="control-btn">Добавить</button>
+                <input type="number" id="custom-minutes" placeholder="Минуты" min="0">
+                <input type="number" id="custom-seconds" placeholder="Секунды" min="0" max="59">
+                <button id="add-custom-timer">Добавить</button>
             </div>
         </div>
 
-        <div class="interval-sounds">
-            <h2>Промежуточные звуки</h2>
-            <div class="interval-options">
-                <label>
-                    <input type="checkbox" id="sound-15" data-interval="15">
-                    Каждые 15 сек
-                </label>
-                <label>
-                    <input type="checkbox" id="sound-30" data-interval="30">
-                    Каждые 30 сек
-                </label>
-                <label>
-                    <input type="checkbox" id="sound-60" data-interval="60">
-                    Каждую минуту
-                </label>
+        <div class="settings">
+            <h3>Настройки</h3>
+            <div class="setting-item">
+                <input type="checkbox" id="delay-start" checked>
+                <label for="delay-start">Задержка 5 секунд перед стартом</label>
             </div>
+
+            <div class="interim-sounds">
+                <p>Промежуточные звуки:</p>
+                <div class="setting-item">
+                    <input type="checkbox" id="sound-15s" checked>
+                    <label for="sound-15s">Каждые 15 секунд</label>
+                </div>
+                <div class="setting-item">
+                    <input type="checkbox" id="sound-30s">
+                    <label for="sound-30s">Каждые 30 секунд</label>
+                </div>
+                <div class="setting-item">
+                    <input type="checkbox" id="sound-60s">
+                    <label for="sound-60s">Каждую минуту</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-buttons">
+            <button id="start-btn">Старт</button>
+            <button id="pause-btn" disabled>Пауза</button>
+            <button id="reset-btn" disabled>Сброс</button>
+        </div>
+
+        <div id="countdown" class="countdown-delay hidden">
+            Старт через: <span id="countdown-value">5</span>
         </div>
     </div>
 
-    <audio id="complete-audio">
-        <source src="./audio/finish.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="interval-sound">
-        <source src="./audio/interval.mp3" type="audio/mpeg">
-    </audio>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Элементы UI
-            const timeDisplay = document.querySelector('.time');
-            const progressBar = document.querySelector('.progress-bar');
-            const startPauseBtn = document.getElementById('start-pause');
-            const resetBtn = document.getElementById('reset');
-            const presetBtns = document.querySelectorAll('.preset-btn');
-            const minutesInput = document.getElementById('minutes');
-            const secondsInput = document.getElementById('seconds');
-            const addCustomBtn = document.getElementById('add-custom');
-            const intervalCheckboxes = document.querySelectorAll('.interval-options input[type="checkbox"]');
+        // Аудио элементы
+        const tickSound = new Audio('./audio/interval.mp3');
+        const interimSound = new Audio('./audio/interval.mp3');
+        const completionSound = new Audio('./audio/finish.mp3');
 
+        // Элементы DOM
+        const minutesDisplay = document.getElementById('minutes');
+        const secondsDisplay = document.getElementById('seconds');
+        const presetButtons = document.querySelectorAll('.preset-btn');
+        const customMinutesInput = document.getElementById('custom-minutes');
+        const customSecondsInput = document.getElementById('custom-seconds');
+        const addCustomTimerBtn = document.getElementById('add-custom-timer');
+        const startBtn = document.getElementById('start-btn');
+        const pauseBtn = document.getElementById('pause-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const delayStartCheckbox = document.getElementById('delay-start');
+        const sound15sCheckbox = document.getElementById('sound-15s');
+        const sound30sCheckbox = document.getElementById('sound-30s');
+        const sound60sCheckbox = document.getElementById('sound-60s');
+        const countdownElement = document.getElementById('countdown');
+        const countdownValueElement = document.getElementById('countdown-value');
 
+        let timerInterval = null;
+        let countdownInterval = null;
+        let totalSeconds = 60; // По умолчанию 1 минута
+        let currentSeconds = totalSeconds;
+        let isTimerRunning = false;
+        let isPaused = false;
 
-            // Звуки
-            const intervalSound = document.getElementById('interval-sound');
-            const finishSound = document.getElementById('complete-audio');
+        // Инициализация таймера
+        function initTimer() {
+            updateTimerDisplay(totalSeconds);
+            highlightActivePreset();
+        }
 
-            finishSound.load();
-            intervalSound.load();
+        // Обновление дисплея таймера
+        function updateTimerDisplay(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
 
-            // Переменные таймера
-            let timer = null;
-            let isRunning = false;
-            let totalSeconds = 0;
-            let remainingSeconds = 0;
-            let activeIntervals = new Set();
+            minutesDisplay.textContent = mins < 10 ? `0${mins}` : mins;
+            secondsDisplay.textContent = secs < 10 ? `0${secs}` : secs;
+        }
 
-            // Инициализация
-            updateDisplay(0);
-
-            // Обработчики событий
-            startPauseBtn.addEventListener('click', toggleTimer);
-            resetBtn.addEventListener('click', resetTimer);
-
-            presetBtns.forEach(btn => {
-                btn.addEventListener('click', function () {
-                    const seconds = parseInt(this.dataset.seconds);
-                    setTimer(seconds);
-
-                    // Убираем активный класс у всех кнопок и добавляем текущей
-                    presetBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-
-            addCustomBtn.addEventListener('click', function () {
-                const minutes = parseInt(minutesInput.value) || 0;
-                const seconds = parseInt(secondsInput.value) || 0;
-                const totalSecs = minutes * 60 + seconds;
-
-                if (totalSecs > 0) {
-                    setTimer(totalSecs);
-
-                    // Сбрасываем активный класс у всех кнопок
-                    presetBtns.forEach(btn => btn.classList.remove('active'));
-
-                    // Сбрасываем поля ввода
-                    minutesInput.value = '';
-                    secondsInput.value = '';
-                }
-            });
-
-            intervalCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function () {
-                    const interval = parseInt(this.dataset.interval);
-
-                    if (this.checked) {
-                        activeIntervals.add(interval);
-                    } else {
-                        activeIntervals.delete(interval);
-                    }
-                });
-            });
-
-            function setCheckedWithEvent() {
-                // Get the checkbox element
-                const checkbox = document.getElementById('sound-15');
-
-                // Set the checked property to true
-                checkbox.checked = true;
-
-                // Create and dispatch a change event
-                const changeEvent = new Event('change', {
-                    bubbles: true,    // Event bubbles up through the DOM
-                    cancelable: true  // Event can be canceled
-                });
-
-                // Dispatch the change event on the checkbox
-                checkbox.dispatchEvent(changeEvent);
-
-                console.log('Checkbox has been checked and change event triggered');
-            }
-
-
-            // Функции
-            function toggleTimer() {
-                if (remainingSeconds <= 0) {
-                    // Если таймер закончился или не был установлен, используем последний установленный
-                    remainingSeconds = totalSeconds > 0 ? totalSeconds : 0;
-                }
-
-                if (remainingSeconds <= 0) {
-                    return; // Нет установленного времени
-                }
-
-                if (isRunning) {
-                    clearInterval(timer);
-                    startPauseBtn.textContent = 'Запустить';
+        // Выделение активной предустановки
+        function highlightActivePreset() {
+            presetButtons.forEach(btn => {
+                if (parseInt(btn.dataset.time) === totalSeconds) {
+                    btn.classList.add('active');
                 } else {
-                    startTimer();
-                    startPauseBtn.textContent = 'Пауза';
+                    btn.classList.remove('active');
                 }
+            });
+        }
 
-                isRunning = !isRunning;
+        // Обработчик для предустановленных таймеров
+        presetButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                totalSeconds = parseInt(btn.dataset.time);
+                currentSeconds = totalSeconds;
+                updateTimerDisplay(currentSeconds);
+                highlightActivePreset();
+
+                if (isTimerRunning) {
+                    resetTimer();
+                    startTimer();
+                }
+            });
+        });
+
+        // Добавление кастомного таймера
+        addCustomTimerBtn.addEventListener('click', () => {
+            const minutes = parseInt(customMinutesInput.value) || 0;
+            const seconds = parseInt(customSecondsInput.value) || 0;
+
+            if (minutes === 0 && seconds === 0) {
+                alert('Пожалуйста, введите время больше 0');
+                return;
             }
 
-            function startTimer() {
-                const startTime = Date.now();
-                const initialRemaining = remainingSeconds;
+            totalSeconds = (minutes * 60) + seconds;
+            currentSeconds = totalSeconds;
+            updateTimerDisplay(currentSeconds);
 
-                timer = setInterval(() => {
-                    const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
-                    remainingSeconds = initialRemaining - elapsedSeconds;
+            // Сбросить выделение с предустановленных кнопок
+            presetButtons.forEach(btn => btn.classList.remove('active'));
 
-                    if (remainingSeconds <= 0) {
-                        completeTimer();
-                        return;
+            // Сбросить поля ввода
+            customMinutesInput.value = '';
+            customSecondsInput.value = '';
+
+            if (isTimerRunning) {
+                resetTimer();
+                startTimer();
+            }
+        });
+
+        // Запуск таймера
+        function startTimer() {
+            if (isPaused) {
+                isPaused = false;
+            } else {
+                // Если таймер не запущен и не в паузе, сбросить текущее время
+                currentSeconds = totalSeconds;
+                updateTimerDisplay(currentSeconds);
+            }
+
+            // Задержка перед стартом, если выбрана
+            if (delayStartCheckbox.checked && !isPaused) {
+                countdownElement.classList.remove('hidden');
+                let countdownValue = 5;
+                countdownValueElement.textContent = countdownValue;
+
+                countdownInterval = setInterval(() => {
+                    countdownValue--;
+                    countdownValueElement.textContent = countdownValue;
+
+                    if (countdownValue <= 0) {
+                        clearInterval(countdownInterval);
+                        countdownElement.classList.add('hidden');
+                        startActualTimer();
+                    }
+                }, 1000);
+            } else {
+                startActualTimer();
+            }
+        }
+
+        // Непосредственный запуск таймера после задержки
+        function startActualTimer() {
+            isTimerRunning = true;
+            pauseBtn.disabled = false;
+            resetBtn.disabled = false;
+            startBtn.disabled = true;
+
+            timerInterval = setInterval(() => {
+                if (currentSeconds > 0) {
+                    currentSeconds--;
+                    updateTimerDisplay(currentSeconds);
+
+                    // Промежуточные звуки
+                    const remainingSeconds = currentSeconds % 60;
+                    const totalElapsedSeconds = totalSeconds - currentSeconds;
+
+                    if (sound15sCheckbox.checked && totalElapsedSeconds > 0 && totalElapsedSeconds % 15 === 0) {
+                        interimSound.play();
                     }
 
-                    // Проверяем необходимость промежуточных звуков
-                    const secondsElapsed = totalSeconds - remainingSeconds;
-                    activeIntervals.forEach(interval => {
-                        if (secondsElapsed > 0 && secondsElapsed % interval === 0) {
-                            playIntervalSound();
-                        }
-                    });
+                    if (sound30sCheckbox.checked && totalElapsedSeconds > 0 && totalElapsedSeconds % 30 === 0) {
+                        interimSound.play();
+                    }
 
-                    updateDisplay(remainingSeconds);
-                }, 100); // Обновляем чаще для более плавного прогресс-бара
-            }
-
-            function resetTimer() {
-                clearInterval(timer);
-                isRunning = false;
-                remainingSeconds = totalSeconds;
-                startPauseBtn.textContent = 'Запустить';
-                updateDisplay(remainingSeconds);
-            }
-
-            function setTimer(seconds) {
-                // Останавливаем текущий таймер, если он запущен
-                if (isRunning) {
-                    clearInterval(timer);
+                    if (sound60sCheckbox.checked && totalElapsedSeconds > 0 && totalElapsedSeconds % 60 === 0) {
+                        interimSound.play();
+                    }
+                } else {
+                    completionSound.play();
+                    resetTimer();
                 }
+            }, 1000);
+        }
 
-                totalSeconds = seconds;
-                remainingSeconds = seconds;
-                updateDisplay(remainingSeconds);
+        // Пауза таймера
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            isPaused = true;
+            pauseBtn.disabled = true;
+            startBtn.disabled = false;
+        }
 
-                // Автоматически запускаем таймер
-                isRunning = false;
-                toggleTimer();
-            }
+        // Сброс таймера
+        function resetTimer() {
+            clearInterval(timerInterval);
+            clearInterval(countdownInterval);
+            isTimerRunning = false;
+            isPaused = false;
+            currentSeconds = totalSeconds;
+            updateTimerDisplay(currentSeconds);
+            pauseBtn.disabled = true;
+            resetBtn.disabled = true;
+            startBtn.disabled = false;
+            countdownElement.classList.add('hidden');
+        }
 
-            function completeTimer() {
-                clearInterval(timer);
-                isRunning = false;
-                remainingSeconds = 0;
-                updateDisplay(0);
-                startPauseBtn.textContent = 'Запустить';
-                playFinishSound();
-            }
+        // Обработчики событий для кнопок управления
+        startBtn.addEventListener('click', startTimer);
+        pauseBtn.addEventListener('click', pauseTimer);
+        resetBtn.addEventListener('click', resetTimer);
 
-            function updateDisplay(seconds) {
-                const minutes = Math.floor(seconds / 60);
-                const secs = seconds % 60;
-
-                timeDisplay.textContent = `${padZero(minutes)}:${padZero(secs)}`;
-
-                // Обновляем прогресс-бар
-                const progressPercent = totalSeconds > 0 ? (seconds / totalSeconds) * 100 : 0;
-                progressBar.style.width = `${100 - progressPercent}%`;
-            }
-
-            function padZero(num) {
-                return num.toString().padStart(2, '0');
-            }
-
-            function playIntervalSound() {
-                if (!intervalSound.paused) {
-                    intervalSound.pause();
-                    intervalSound.currentTime = 0;
-                }
-                intervalSound.play();
-            }
-
-            function playFinishSound() {
-                finishSound.play();
-            }
-
-
-            const timeoutId = setTimeout(setCheckedWithEvent, 500);
-        });</script>
-
+        // Инициализация таймера при загрузке страницы
+        initTimer();</script>
     <script>
         // Регистрация Service Worker для PWA
         if ('serviceWorker' in navigator) {
