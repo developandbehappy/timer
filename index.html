@@ -203,18 +203,16 @@
         }
 
         .countdown-delay {
-            margin-top: 15px;
-            text-align: center;
+            text-align: left;
             font-size: 18px;
-            color: #ff5722;
+            color: #6a6a6a;
             font-weight: bold;
-            padding: 10px;
-            background-color: #fff3e0;
-            border-radius: 6px;
+            margin-bottom: 6px;
+            margin-top: -12px;
         }
 
         .hidden {
-            display: none;
+            visibility: hidden;
         }
 
         @media (max-width: 480px) {
@@ -258,15 +256,17 @@
 
 <body>
     <div class="timer-container">
-        <h1>Таймер
-            <div id="countdown" class="countdown-delay hidden">
-                Старт через: <span id="countdown-value">5</span>
-            </div>
-        </h1>
+        <h1>Таймер</h1>
+
+        <div id="countdown" class="countdown-delay">
+            Старт через: <span id="countdown-value">5</span>
+        </div>
 
         <div class="timer-display">
             <span id="minutes">00</span>:<span id="seconds">00</span>
         </div>
+
+
 
 
         <div class="presets-container">
@@ -329,8 +329,6 @@
         const interimSound = new Audio('https://developandbehappy.github.io/timer/audio/interval.mp3');
         const completionSound = new Audio('https://developandbehappy.github.io/timer/audio/finish.mp3');
 
-
-
         // Элементы DOM
         const minutesDisplay = document.getElementById('minutes');
         const secondsDisplay = document.getElementById('seconds');
@@ -357,10 +355,6 @@
 
         // Инициализация таймера
         function initTimer() {
-            tickSound.load();
-            completionSound.load();
-            interimSound.load();
-            
             updateTimerDisplay(totalSeconds);
             highlightActivePreset();
         }
@@ -467,7 +461,7 @@
 
                 countdownInterval = setInterval(() => {
                     countdownValue--;
-                    countdownValueElement.textContent = countdownValue;
+                    countdownValueElement.textContent = `${countdownValue}...`;
 
                     if (countdownValue <= 0) {
                         clearInterval(countdownInterval);
