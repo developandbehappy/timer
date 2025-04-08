@@ -190,6 +190,18 @@
             cursor: not-allowed;
         }
 
+
+        #redBlock {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: red;
+            display: none;
+            z-index: 9999;
+        }
+
         .countdown-delay {
             margin-top: 15px;
             text-align: center;
@@ -208,6 +220,7 @@
         @media (max-width: 480px) {
             body {
                 background-color: #fff;
+                padding: 0;
             }
 
             .timer-container {
@@ -305,12 +318,14 @@
         </div>
     </div>
 
+    <div id="redBlock"></div>
+
 
     <script>
         // Аудио элементы
-        const tickSound = new Audio('./audio/interval.mp3');
-        const interimSound = new Audio('./audio/interval.mp3');
-        const completionSound = new Audio('./audio/finish.mp3');
+        const tickSound = new Audio('https://developandbehappy.github.io/timer/audio/interval.mp3');
+        const interimSound = new Audio('https://developandbehappy.github.io/timer/audio/interval.mp3');
+        const completionSound = new Audio('https://developandbehappy.github.io/timer/audio/finish.mp3');
 
         // Элементы DOM
         const minutesDisplay = document.getElementById('minutes');
@@ -360,6 +375,30 @@
                     btn.classList.remove('active');
                 }
             });
+        }
+
+        function showRedBlock() {
+            const redBlock = document.getElementById('redBlock');
+            let isVisible = true;
+
+            // Показываем блок
+            redBlock.style.display = 'block';
+
+            // Запускаем моргание
+            const blinkInterval = setInterval(() => {
+                if (isVisible) {
+                    redBlock.style.opacity = '0';
+                } else {
+                    redBlock.style.opacity = '1';
+                }
+                isVisible = !isVisible;
+            }, 200); // Частота моргания - 200мс
+
+            // Останавливаем моргание и скрываем блок через 3 секунды
+            setTimeout(() => {
+                clearInterval(blinkInterval);
+                redBlock.style.display = 'none';
+            }, 3000);
         }
 
         // Обработчик для предустановленных таймеров
@@ -461,6 +500,7 @@
                         interimSound.play();
                     }
                 } else {
+                    showRedBlock();
                     completionSound.play();
                     resetTimer();
                 }
