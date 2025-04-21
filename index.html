@@ -484,15 +484,15 @@
                     const remainingSeconds = currentSeconds % 60;
                     const totalElapsedSeconds = totalSeconds - currentSeconds;
 
-                    if (sound15sCheckbox.checked && totalElapsedSeconds > 0 && totalElapsedSeconds % 15 === 0) {
+                    if (sound15sCheckbox.checked && totalElapsedSeconds > 0 && totalElapsedSeconds % 15 === 0 && currentSeconds > 5) {
                         interimSound.play();
                     }
 
-                    if (sound30sCheckbox.checked && totalElapsedSeconds > 0 && totalElapsedSeconds % 30 === 0) {
+                    if (sound30sCheckbox.checked && totalElapsedSeconds > 0 && totalElapsedSeconds % 30 === 0 && currentSeconds > 5) {
                         interimSound.play();
                     }
 
-                    if (sound60sCheckbox.checked && totalElapsedSeconds > 0 && totalElapsedSeconds % 60 === 0) {
+                    if (sound60sCheckbox.checked && totalElapsedSeconds > 0 && totalElapsedSeconds % 60 === 0 && currentSeconds > 5) {
                         interimSound.play();
                     }
                 } else {
